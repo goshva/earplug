@@ -1,0 +1,24 @@
+{
+  "name": "earplug",
+  "version": "1.0.0",
+  "description": "Chrome-расширение: мьютит уже виденные рекламные ролики любой длины по аудио-отпечаткам (Chromaprint). ## Установка 1. Добавьте chromaprint_wasm.js + .wasm (rusty-chromaprint-wasm) 2. chrome://extensions → Режим разработчика → Загрузить распакованное → эта папка ## GitHub https://github.com/goshva/earplug",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goshva/earplug.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/goshva/earplug/issues"
+  },
+  "homepage": "https://github.com/goshva/earplug#readme",
+  "dependencies": {
+    "rusty-chromaprint-wasm": "^0.1.5"
+  }
+}
