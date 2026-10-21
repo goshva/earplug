@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earplug — инвестиционное предложение</title>
+<style>
+  :root{
+    --ink:#0f172a;
+    --muted:#5b6478;
+    --line:#e4e8f0;
+    --bg:#f6f8fc;
+    --card:#ffffff;
+    --accent:#2f6df6;
+    --accent-soft:#eaf1ff;
+    --green:#0f9d6b;
+    --green-soft:#e7f7f0;
+    --amber:#b7791f;
+    --amber-soft:#fdf3e0;
+    --red:#c0392b;
+    --red-soft:#fdecea;
+    --radius:16px;
+    --shadow:0 8px 30px rgba(15,23,42,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0}
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em}
+  h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:12px}
+  h3{font-size:18px;margin-bottom:8px}
+  p{color:var(--muted)}
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);background:var(--accent-soft);
+    padding:6px 12px;border-radius:999px;margin-bottom:16px;
+  }
+  .lead{font-size:18px;color:var(--muted);max-width:720px}
+
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(1000px 500px at 85% -10%, #dfe9ff 0%, transparent 60%),
+      radial-gradient(800px 400px at 0% 0%, #e8f6f0 0%, transparent 55%),
+      var(--card);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{padding-top:64px;padding-bottom:64px}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+  .logo{
+    width:42px;height:42px;border-radius:12px;flex:none;
+    background:linear-gradient(135deg,#2f6df6,#6a9bff);
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;
+    box-shadow:0 6px 16px rgba(47,109,246,.35);
+  }
+  .brand b{font-size:18px}
+  .brand span{color:var(--muted);font-size:13px}
+  .hero h1{font-size:clamp(32px,5vw,52px);max-width:900px;margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .lead{font-size:20px;margin-bottom:32px}
+  .metrics{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px;margin-top:44px;
+  }
+  .metric{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;box-shadow:var(--shadow);
+  }
+  .metric b{display:block;font-size:26px;letter-spacing:-.02em}
+  .metric small{color:var(--muted);font-size:13px}
+
+  /* GENERIC GRID */
+  .grid{display:grid;gap:20px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;box-shadow:var(--shadow);
+  }
+  .card p{font-size:15px}
+  .icon{
+    width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+    font-size:20px;margin-bottom:16px;background:var(--accent-soft);color:var(--accent);
+  }
+
+  /* HOW IT WORKS */
+  .steps{display:grid;gap:0;margin-top:28px}
+  .step{
+    display:grid;grid-template-columns:56px 1fr;gap:20px;
+    padding:22px 0;border-bottom:1px dashed var(--line);align-items:start;
+  }
+  .step:last-child{border-bottom:none}
+  .step .num{
+    width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+    font-weight:800;background:var(--accent);color:#fff;font-size:16px;
+  }
+  .step p{font-size:15px}
+
+  /* PRICING */
+  .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:28px}
+  .plan{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;
+  }
+  .plan.featured{border:2px solid var(--accent);box-shadow:0 16px 40px rgba(47,109,246,.16)}
+  .plan .tag{
+    position:absolute;top:-12px;left:24px;background:var(--accent);color:#fff;
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:5px 10px;border-radius:999px;
+  }
+  .plan h3{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .price{font-size:38px;font-weight:800;letter-spacing:-.03em;margin:8px 0 2px}
+  .price small{font-size:14px;font-weight:500;color:var(--muted)}
+  .plan ul{list-style:none;margin:18px 0 0;display:grid;gap:10px;font-size:14.5px}
+  .plan li{display:flex;gap:10px;color:var(--ink)}
+  .plan li::before{content:"✓";color:var(--green);font-weight:800;flex:none}
+  .plan .pill{
+    display:inline-block;margin-top:18px;font-size:13px;color:var(--muted);
+    background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+  }
+
+  /* TABLE */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);background:var(--card);margin-top:24px}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+  th,td{padding:16px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  th{background:var(--bg);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  td.good{color:var(--green);font-weight:600}
+  td.bad{color:var(--red);font-weight:600}
+
+  /* ROADMAP */
+  .roadmap{margin-top:32px;position:relative}
+  .rm-item{
+    display:grid;grid-template-columns:140px 1fr;gap:24px;padding:24px 0;
+    border-left:3px solid var(--accent-soft);padding-left:24px;margin-left:12px;position:relative;
+  }
+  .rm-item::before{
+    content:"";position:absolute;left:-10px;top:28px;width:16px;height:16px;
+    border-radius:50%;background:var(--accent);border:3px solid var(--card);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .rm-item b{font-size:14px;color:var(--accent)}
+  .rm-item h4{font-size:17px;margin-bottom:8px}
+  .rm-item p{font-size:14.5px}
+  .scenarios{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .sc{border-radius:12px;padding:12px 14px;font-size:13.5px}
+  .sc.opt{background:var(--green-soft);border:1px solid #c7ecdc}
+  .sc.pes{background:var(--red-soft);border:1px solid #f6cdc7}
+  .sc b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+  .sc.opt b{color:var(--green)}
+  .sc.pes b{color:var(--red)}
+
+  /* RISKS */
+  .risk{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .risk:last-child{border-bottom:none}
+  .risk .badge{
+    flex:none;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    padding:5px 10px;border-radius:999px;height:fit-content;white-space:nowrap;
+  }
+  .badge.hi{background:var(--red-soft);color:var(--red)}
+  .badge.mid{background:var(--amber-soft);color:var(--amber)}
+  .badge.lo{background:var(--green-soft);color:var(--green)}
+  .risk p{font-size:14.5px}
+
+  /* ASK */
+  .ask{
+    background:linear-gradient(135deg,#10203f,#1c3a72);color:#fff;
+    border-radius:24px;padding:48px;box-shadow:0 24px 60px rgba(16,32,63,.3);
+  }
+  .ask h2{color:#fff}
+  .ask p{color:#c6d2ea}
+  .ask-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:32px}
+  .ask-grid b{display:block;font-size:24px;margin-bottom:4px}
+  .ask-grid small{color:#a9bad8;font-size:13px}
+
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  .disclaimer{
+    margin-top:16px;font-size:12px;color:#8a93a6;max-width:720px;margin-left:auto;margin-right:auto;
+  }
+  .cta{
+    display:inline-block;margin-top:28px;background:#fff;color:#10203f;font-weight:700;
+    padding:14px 28px;border-radius:12px;text-decoration:none;transition:.2s;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+  @media (max-width:640px){
+    section{padding:52px 0}
+    .hero .wrap{padding-top:40px;padding-bottom:40px}
+    .rm-item{grid-template-columns:1fr;gap:8px}
+    .scenarios{grid-template-columns:1fr}
+    .ask{padding:32px 24px}
+  }
+  @media print{
+    body{background:#fff}
+    .hero,.card,.plan,.tablewrap,.ask{box-shadow:none}
+    section{padding:32px 0}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">E</div>
+      <div>
+        <b>Earplug</b><br>
+        <span>Ad Mute by Audio Fingerprint · Chrome Extension</span>
+      </div>
+    </div>
+    <span class="eyebrow">Инвестиционное предложение</span>
+    <h1>Глушим рекламу <em>по звуку</em> — и превращаем аудио-отпечатки в сетевой актив</h1>
+    <p class="lead">
+      Earplug распознаёт уже виденные рекламные ролики по аудио-отпечатку (Chromaprint) и мьютит их автоматически.
+      Пользователи бесплатно пополняют общую базу слепков — а те, кто не хочет делиться данными, платят за доступ к облаку.
+    </p>
+    <div class="metrics">
+      <div class="metric"><b>3 уровня</b><small>Free / Contributor / Pro</small></div>
+      <div class="metric"><b>$2.99/мес</b><small>Pro-подписка, $29.90/год</small></div>
+      <div class="metric"><b>3–5%</b><small>целевая конверсия в Pro</small></div>
+      <div class="metric"><b>100–300 тыс.</b><small>MAU через 12 мес (оптимист.)</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROBLEM / SOLUTION ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Проблема и решение</span>
+    <h2>Реклама стала громкой, навязчивой и трудноотличимой</h2>
+    <p class="lead">Классические блокировщики не работают против встроенных рекламных вставок в видео и аудио. Earplug решает задачу иначе — на уровне звука.</p>
+    <div class="grid g2" style="margin-top:32px">
+      <div class="card">
+        <div class="icon">🔇</div>
+        <h3>Проблема</h3>
+        <p>Рекламные ролики в видео и подкастах невозможно «заблокировать» DOM-фильтрами. Пользователь вынужден вручную жать mute, теряя контекст, или терпеть громкость.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎧</div>
+        <h3>Решение</h3>
+        <p>Расширение генерирует аудио-отпечаток (Chromaprint) и сравнивает его с базой. Совпадение — ролик мьютится автоматически, без участия пользователя и без отправки самого аудио.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">Как это работает</span>
+    <h2>Три шага — от прослушивания до мьюта</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h4>Локальный отпечаток</h4>
+          <p>Расширение захватывает аудио-поток вкладки и вычисляет Chromaprint-отпечаток через WASM (rusty-chromaprint-wasm). Аудио не покидает устройство.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h4>Проверка по базе</h4>
+          <p>Отпечаток сверяется с локальным кэшем. Если его нет — Contributor-пользователь отправляет хеш на сервер и пополняет общую базу. Pro-пользователь только запрашивает.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h4>Автоматический мьют</h4>
+          <p>При совпадении расширение мьютит вкладку до конца ролика и снимает мьют, когда начинается контент. Никаких ручных действий.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUSINESS MODEL ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Бизнес-модель</span>
+    <h2>Бесплатная экспансия за счёт данных + платный доступ к облаку</h2>
+    <p class="lead">Пользователь «платит» слепками — или деньгами, если не хочет делиться. Это создаёт самоусиливающийся сетевой эффект.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <p style="font-size:13.5px">Локальный мьют</p>
+        <ul>
+          <li>Локальная база слепков</li>
+          <li>Ручное добавление роликов</li>
+          <li>Без облака и синхронизации</li>
+        </ul>
+        <span class="pill">Воронка: привыкание и ценность</span>
+      </div>
+      <div class="plan featured">
+        <span class="tag">Двигатель роста</span>
+        <h3>Contributor</h3>
+        <div class="price">$0 <small>в обмен на вклад</small></div>
+        <p style="font-size:13.5px">Облако за данные</p>
+        <ul>
+          <li>Полный доступ к облачному поиску</li>
+          <li>Облачный мьют</li>
+          <li>Автоотправка новых слепков</li>
+        </ul>
+        <span class="pill">Краудсорсинг базы</span>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="price">$2.99<small>/мес</small></div>
+        <p style="font-size:13.5px">Или $29.90/год (скидка ~17%)</p>
+        <ul>
+          <li>Облако без отправки данных</li>
+          <li>Приоритетные запросы</li>
+          <li>Расширенная статистика</li>
+        </ul>
+        <span class="pill">Монетизация приватности</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARKET ================= -->
+<section style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">Рынок и ниша</span>
+    <h2>Пересечение блокировки рекламы и privacy-инструментов</h2>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card">
+        <div class="icon">📈</div>
+        <h3>Огромный рынок adblock</h3>
+        <p>Сотни миллионов пользователей блокировщиков рекламы. Earplug не конкурирует напрямую, а закрывает сегмент, который они не решают: видео- и аудиореклама.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔐</div>
+        <h3>Платёжеспособная privacy-аудитория</h3>
+        <p>Пользователи, готовые платить за приватность, уже покупают VPN и приватные поисковики. Pro-тариф прямо адресован этой аудитории.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Сетевой эффект</h3>
+        <p>Чем больше Contributor'ов, тем ценнее база — и тем выше готовность платить за Pro. Это классический self-reinforcing цикл.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT ECONOMICS / SCENARIOS ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Экономика и сценарии</span>
+    <h2>Что даёт год в цифрах</h2>
+    <p class="lead">Два сценария — от устойчивого бизнеса до «зомби»-проекта. Ключевые развилки: ревью в Chrome Web Store, доля Contributor и качество базы.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Показатель через 12 мес</th>
+            <th>Оптимистичный</th>
+            <th>Пессимистичный</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MAU</td>
+            <td class="good">100–300 тыс.</td>
+            <td class="bad">8–20 тыс.</td>
+          </tr>
+          <tr>
+            <td>Доля платящих (Pro)</td>
+            <td class="good">4–6%</td>
+            <td class="bad">~1%</td>
+          </tr>
+          <tr>
+            <td>Платящих пользователей</td>
+            <td class="good">4–15 тыс.</td>
+            <td class="bad">80–200</td>
+          </tr>
+          <tr>
+            <td>Выручка Pro / мес</td>
+            <td class="good">$12–45 тыс.</td>
+            <td class="bad">$240–600</td>
+          </tr>
+          <tr>
+            <td>Серверные расходы</td>
+            <td>$300–1 500 / мес</td>
+            <td>$50–150 / мес</td>
+          </tr>
+          <tr>
+            <td>Исход</td>
+            <td class="good">Устойчивый бизнес, интерес к партнёрству/поглощению</td>
+            <td class="bad">Полезный open-source без устойчивой монетизации</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">Roadmap · 12 месяцев</span>
+    <h2>План разработки и маркетинга — с двумя исходами на каждой фазе</h2>
+    <div class="roadmap">
+
+      <div class="rm-item">
+        <b>Фаза 0 · 0–2 мес</b>
+        <div>
+          <h4>Стабилизация и выход в Chrome Web Store</h4>
+          <p>Чистый пакет и ревью магазина, обработка ошибок WASM, поддержка популярных плееров (YouTube, Rutube, VK Video), privacy policy и обоснование permissions. Маркетинг: лендинг, посты в r/Adblock, r/privacy, Habr, ASO.</p>
+          <div class="scenarios">
+            <div class="sc opt"><b>Оптимистично</b>2–5 тыс. установок, 500–1500 MAU, ревью пройдено с первого раза.</div>
+            <div class="sc pes"><b>Пессимистично</b>200–800 установок, ревью затянулось из-за permissions.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-item">
+        <b>Фаза 1 · 2–4 мес</b>
+        <div>
+          <h4>Бэкенд и Contributor-уровень</h4>
+          <p>API загрузки/поиска слепков, дедупликация и rate limiting, объектное хранилище + индекс, антифрод, оффлайн-очередь и согласие на отправку. Маркетинг: прозрачное позиционирование Contributor, публичный счётчик базы, первые кейсы.</p>
+          <div class="scenarios">
+            <div class="sc opt"><b>Оптимистично</b>10–30 тыс. MAU, 50–200 тыс. слепков, 30–50% включили Contributor.</div>
+            <div class="sc pes"><b>Пессимистично</b>3–8 тыс. MAU, &lt;20 тыс. слепков, Contributor выключен у большинства.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-item">
+        <b>Фаза 2 · 4–6 мес</b>
+        <div>
+          <h4>Pro-подписка и платежи</h4>
+          <p>Интеграция Stripe/Paddle/ЮKassa, лицензионные ключи, проверка статуса Pro, отключение загрузки слепков для Pro, приоритетные запросы. Маркетинг: запуск $2.99/мес и $29.90/год, onboarding трёх уровней.</p>
+          <div class="scenarios">
+            <div class="sc opt"><b>Оптимистично</b>3–5% конверсии → $1.8–3 тыс./мес, Pro окупает инфраструктуру.</div>
+            <div class="sc pes"><b>Пессимистично</b>0.5–1.5% → $75–225/мес, Pro не покрывает расходы.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rm-item">
+        <b>Фаза 3 · 6–12 мес</b>
+        <div>
+          <h4>Масштабирование</h4>
+          <p>Оптимизация поиска и кэша, Firefox/Edge, партнёрский API, автомодерация базы. Маркетинг: партнёрства с privacy-инструментами, контент и конференции, платный трафик только при LTV/CAC &gt; 3.</p>
+          <div class="scenarios">
+            <div class="sc opt"><b>Оптимистично</b>100–300 тыс. MAU, $12–45 тыс./мес, интерес к покупке.</div>
+            <div class="sc pes"><b>Пессимистично</b>8–20 тыс. MAU, $240–600/мес, заморозка или open-source.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= RISKS ================= -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Риски и митигация</span>
+    <h2>Что может пойти не так — и как это закрывается</h2>
+    <div style="margin-top:24px">
+      <div class="risk">
+        <span class="badge hi">Высокий</span>
+        <p><b>Ревью в Chrome Web Store.</b> Расширение могут счесть «обходом рекламы». Митигация: аккуратные permissions, позиционирование как privacy-инструмент, ранняя коммуникация с ревьюерами.</p>
+      </div>
+      <div class="risk">
+        <span class="badge hi">Высокий</span>
+        <p><b>Юридический риск.</b> Автоматический мьют может нарушать ToS видеоплатформ. Митигация: фокус на пользовательском мьюте (не блокировке), юридическая консультация до масштабирования.</p>
+      </div>
+      <div class="risk">
+        <span class="badge mid">Средний</span>
+        <p><b>Низкая доля Contributor.</b> Пользователи боятся отправки данных. Митигация: прозрачность (отправляется только хеш), onboarding, «по умолчанию с уведомлением».</p>
+      </div>
+      <div class="risk">
+        <span class="badge mid">Средний</span>
+        <p><b>Качество базы.</b> Шумные слепки снижают точность. Митигация: дедупликация, версионирование, канонизация роликов, репутация источников.</p>
+      </div>
+      <div class="risk">
+        <span class="badge lo">Низкий</span>
+        <p><b>Рост серверных расходов.</b> Митигация: клиентский кэш, батч-запросы, оптимизация индекса поиска.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ASK ================= -->
+<section>
+  <div class="wrap">
+    <div class="ask">
+      <span class="eyebrow" style="background:rgba(255,255,255,.12);color:#bfd2ff">Инвестиционный запрос</span>
+      <h2>Что нужно, чтобы запустить маховик</h2>
+      <p class="lead" style="color:#c6d2ea">
+        Средства направляются на бэкенд и антифрод (Фаза 1), платёжную интеграцию (Фаза 2)
+        и вывод продукта в Chrome Web Store с последующим маркетингом.
+      </p>
+      <div class="ask-grid">
+        <div><b>$40–60 тыс.</b><small>на 12 месяцев runway</small></div>
+        <div><b>2–3 человека</b><small>backend + frontend + growth</small></div>
+        <div><b>12 мес</b><small>до точки принятия решения по масштабированию</small></div>
+        <div><b>3–5%</b><small>целевая конверсия в Pro</small></div>
+      </div>
+      <a class="cta" href="https://github.com/goshva/earplug" target="_blank" rel="noopener">Смотреть проект на GitHub →</a>
+    </div>
+    <p class="disclaimer">
+      Все цифры в документе — оценки и целевые показатели на основе анализа рынка и сопоставимых продуктов,
+      а не гарантия доходности. Финансовые прогнозы требуют валидации на реальных данных после запуска.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Earplug · Ad Mute by Audio Fingerprint · <a href="https://github.com/goshva/earplug" style="color:var(--accent);text-decoration:none">github.com/goshva/earplug</a>
+  </div>
+</footer>
+
+</body>
+</html>
